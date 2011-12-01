@@ -3,6 +3,7 @@
 
 import bcbio.google.connection
 import bcbio.google.spreadsheet
+import os
 from bcbio.pipeline import log
 
 def get_project_uppnex_id(project_name,config):
