@@ -19,11 +19,13 @@ def get_project_uppnex_id(project_name,config):
         log.warn("The names of the projects spreadsheet and worksheet on Google Docs could not be found. The Uppnex ID could not be determined.")
         return 'N/A'
     
-    # Get the account credentials
-    encoded_credentials = gdocs_config.get("gdocs_credentials",None)
-    if not encoded_credentials:
-        log.warn("Could not find Google Docs account credentials. The Uppnex ID could not be determined.")
+    encoded_credentials_file = gdocs_config.get("gdocs_credentials",None)
+    encoded_credentials = ""
+    if encoded_credentials_file is None or not os.path.exists(encoded_credentials_file):
+        log.warn("The Google Docs credentials file could not be found. No demultiplex data was written")
         return 'N/A'
+    with open(encoded_credentials_file) as fh:
+        encoded_credentials = fh.read().strip()
     
     # Connect to the spread- and worksheet
     client = bcbio.google.spreadsheet.get_client(encoded_credentials)
