@@ -26,7 +26,7 @@ def get_project_data(project_name,config,columns=PROJECT_DATA_COLUMNS,name_colum
     """Fetch project related data from the Google spreadsheets"""
     
     # Initialize the data array
-    data = dict(zip(columns,["N/A"]*len(columns)))
+    data = [dict(zip(columns,["N/A"]*len(columns)))]
     
     encoded_credentials = bcbio.google.get_credentials(config)
     if encoded_credentials is None:
@@ -56,18 +56,15 @@ def get_project_data(project_name,config,columns=PROJECT_DATA_COLUMNS,name_colum
             continue
 
         # Get the rows for the project
-        rows = bcbio.google.spreadsheet.get_rows_with_constraint(client,ssheet,wsheet,{name_column: project_name})
-        print rows
+        rows = bcbio.google.spreadsheet.get_rows_columns_with_constraint(client,ssheet,wsheet,columns,{name_column: project_name})
         if len(rows) == 0:
             continue
         
-        # Get the header row for the worksheet
-        header = bcbio.google.spreadsheet.get_header(client,ssheet,wsheet)
-        # Match the data columns to the header
-        for i, column in enumerate(columns):
-            index = bcbio.google.spreadsheet.get_column_index(client,ssheet,wsheet,column)
-            if index > 0:
-                data[column] = ", ".join([row[index-1] for row in rows])
+        [data.append(dict(zip(columns,row))) for row in rows]
+        
+    # Remove the first 'N/A'-row if we found results
+    if len(data) > 1:
+        data = data[1:]
     return data    
 
 def get_project_uppnex_id(project_name,config):
