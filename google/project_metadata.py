@@ -4,7 +4,6 @@
 import bcbio.google
 import bcbio.google.spreadsheet
 import os 
-from bcbio.pipeline import log
 
 class ProjectMetaData:
     """A placeholder for metadata associated with a project. 
@@ -41,7 +40,7 @@ class ProjectMetaData:
         for wtitle in wsheet_title.split(','):
             wsheet = bcbio.google.spreadsheet.get_worksheet(client,ssheet,wtitle.strip())
             if not wsheet:
-                log.warn("Could not locate %s in %s." % (wsheet_title,ssheet_title))
+                print("WARNING: Could not locate %s in %s." % (wsheet_title,ssheet_title))
                 continue
 
             # Get the rows for the project
