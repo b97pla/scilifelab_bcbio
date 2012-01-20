@@ -125,13 +125,13 @@ class ProjectMetaData:
         self._uppnex_id = value
 
     project_id = property(_get_project_id,_set_project_id)
-    project_name = property(_get_project_id,_set_project_id)
-    queue_date = property(_get_project_id,_set_project_id)
-    no_samples = property(_get_project_id,_set_project_id)
-    lanes_plates = property(_get_project_id,_set_project_id)
-    min_reads_per_sample = property(_get_project_id,_set_project_id)
-    customer_reference = property(_get_project_id,_set_project_id)
-    application = property(_get_project_id,_set_project_id)
-    no_finished_samples = property(_get_project_id,_set_project_id)
-    uppnex_id = property(_get_project_id,_set_project_id)
+    project_name = property(_get_project_name,_set_project_name)
+    queue_date = property(_get_queue_date,_set_queue_date)
+    no_samples = property(_get_no_samples,_set_no_samples)
+    lanes_plates = property(_get_lanes_plates,_set_lanes_plates)
+    min_reads_per_sample = property(_get_min_reads_per_sample,_set_min_reads_per_sample)
+    customer_reference = property(_get_customer_reference,_set_customer_reference)
+    application = property(_get_application,_set_application)
+    no_finished_samples = property(_get_no_finished_samples,_set_no_finished_samples)
+    uppnex_id = property(_get_uppnex_id,_set_uppnex_id)
             
