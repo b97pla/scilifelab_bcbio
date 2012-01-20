@@ -20,6 +20,7 @@ class ProjectMetaData:
         for attr, col in col_mapping.items():
             columns.append(col)
             attributes.append(attr)
+            setattr(self,attr,None)
             
         # Get the credentials
         encoded_credentials = bcbio.google.get_credentials(config)
